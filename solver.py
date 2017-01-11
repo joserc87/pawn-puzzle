@@ -57,7 +57,7 @@ def print_board(height, width, skulls, solution):
     sys.stdout.write('\n')
     sys.stdout.flush()
 
-def solve(available_positions, uncovered_positions, pawns, skulls):
+def solve(available_positions, uncovered_positions, pawns, skulls, find_all_solutions=False):
     """
     Solves the problem. It builds the coverage as it goes.
     Args:
@@ -70,6 +70,11 @@ def solve(available_positions, uncovered_positions, pawns, skulls):
         pawns (list): The Pawn objects to place
         skulls (list): A list of tuples with the positions of the pink
             skulls
+        find_all_solutions (bool): When true, it tries to find all the
+            solutions. Again, TRIES ;). When this is true, don't expect it to
+            finish anytime soon, continue with your life. Maybe your grand
+            grand children will see this end.
+
 
     Returns A list of solutions, where each solution is a list of tuples
         (Pawn, (row, column)), or an empty list if no solution was found.
@@ -82,7 +87,8 @@ def solve(available_positions, uncovered_positions, pawns, skulls):
         if len(uncovered_positions) == 0:
             # Array of solutions contains one item. This item will be
             # completed when returned
-            print('Solution found!')
+            if find_all_solutions:
+                print('Found another solution')
             return [[]]
         else:
             # No solutions
@@ -101,31 +107,28 @@ def solve(available_positions, uncovered_positions, pawns, skulls):
                         [pos for pos in uncovered_positions
                             if not pawn.can_move(pos)],
                         pawns[1:],
-                        skulls)
+                        skulls,
+                        find_all_solutions)
                 if len(partial_solutions) > 0:
                     # Add the position of the current pawn to the partial
                     # solutions:
                     solutions += [[(pawn, position)] + partial_solution for
                             partial_solution in partial_solutions]
-                    # NOTE:
-                    # Comment the following line to retrieve all the
-                    # solutions (if there are more).
-                    #
-                    # Don't expect it to finish anytime soon though, continue
-                    # with your life. Maybe your grand grand children will see
-                    # this end.
-                    break
+                    if not find_all_solutions:
+                        break
 
     return solutions
 
-def main(height, width, pawns, skulls):
+def main(height, width, pawns, skulls, verbose=False):
     # Enumerate all the positions, excep the occupied by the skulls
     positions = [(x, y) for x in range(width) for y in range(height) if (x, y) not in skulls]
 
     print('Placing pawns ' + ' '.join([pawn.__repr__() for pawn in pawns]) + ' in board')
-    print_board(height, width, skulls, [])
 
-    solutions = solve(positions, positions, pawns, skulls)
+    if verbose:
+        print_board(height, width, skulls, [])
+
+    solutions = solve(positions, positions, pawns, skulls, True)
     for solution in solutions:
         print_board(height, width, skulls, solution)
 
