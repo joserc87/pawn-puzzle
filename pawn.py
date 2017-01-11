@@ -2,6 +2,7 @@
 class Pawn:
     def __init__(self, name):
         self.name = name
+        self.color = u''
         self.set_pos(-1, -1)
 
     def can_move(self, row, col=None):
@@ -25,6 +26,13 @@ class Pawn:
         else:
             self.pos = (row, col)
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        # Output a pawn symbol with color
+        return self.color + u'\u265F' + u'\033[39m'
+
 class PurplePawn(Pawn):
     """
     Pawn that moves horizontally
@@ -32,6 +40,7 @@ class PurplePawn(Pawn):
     def __init__(self):
         # Change to call super class
         self.name = 'purple pawn'
+        self.color = u'\033[35m'
 
     def can_move_relative(self, relative_position):
         # Same row
@@ -43,6 +52,7 @@ class RedPawn(Pawn):
     """
     def __init__(self):
         self.name = 'red pawn'
+        self.color = u'\033[31m'
 
     def can_move_relative(self, relative_position):
         # Same row or same column
@@ -55,12 +65,12 @@ class BluePawn(Pawn):
     """
     def __init__(self):
         self.name = 'blue pawn'
+        self.color = u'\033[34m'
 
     def can_move_relative(self, relative_position):
         # move one row and one column max
         return abs(relative_position[0]) <= 1 and \
             abs(relative_position[1]) <= 1
-
 
 class OrangePawn(Pawn):
     """
@@ -68,6 +78,7 @@ class OrangePawn(Pawn):
     """
     def __init__(self):
         self.name = 'orange pawn'
+        self.color = u'\033[33m'
 
     def can_move_relative(self, relative_position):
         # move one row and 2 columns or viceversa
@@ -81,6 +92,7 @@ class PinkPawn(Pawn):
     """
     def __init__(self):
         self.name = 'pink pawn'
+        self.color = u'\033[95m'
 
     def can_move_relative(self, relative_position):
         # move one row and 2 columns or viceversa
