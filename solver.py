@@ -128,7 +128,7 @@ def main(height, width, pawns, skulls, verbose=False):
     if verbose:
         print_board(height, width, skulls, [])
 
-    solutions = solve(positions, positions, pawns, skulls, True)
+    solutions = solve(positions, positions, pawns, skulls)
     for solution in solutions:
         print_board(height, width, skulls, solution)
 
