@@ -1,7 +1,7 @@
 # Pawn puzzle
 
-Python script that solves [the problem described in
-9gag](http://9gag.com/gag/a8pNR03)
+Python script, [in reply](http://9gag.com/gag/arb4GL5) to the problem described
+in [this 9gag](http://9gag.com/gag/a8pNR03).
 
 ## The problem
 
@@ -9,7 +9,7 @@ Python script that solves [the problem described in
 
 ## The solution
 
-This program tries to find just the first solution to the proglem. It loops
+This program tries to find just the first solution to the problem. It loops
 through every position for every pawn, checking whether it's a valid position
 to place the pawn according to the restrictions described above, and places the
 pawns recursively. Finally, it checks wheter the coverage of the pawns is
@@ -21,6 +21,9 @@ of the board or the skulls can be changed too.
 
 The solutions is printed on the console in UTF using ANSII colors. This was
 tested in an UNIX machine, but it may not work in windows (pull request? ;).
+Because of this, the colors are not true RGB, so it's difficult to
+differentiate the pawns (e.g. the pink pawn may appear as violet. See the image
+of the solution).
 
 ** SPOILER ALERT! **
 
