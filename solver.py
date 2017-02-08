@@ -1,6 +1,7 @@
 import sys
 from pawn import PurplePawn, RedPawn, BluePawn, OrangePawn, PinkPawn
 
+
 class bcolors:
     WHITE = '\033[107m'
     BLACK = '\033[40m'
@@ -16,9 +17,11 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+
 class fcolors:
     PURPLE = '\033[35m'
     ENDC = '\033[39m'
+
 
 def print_board(height, width, skulls, solution):
 
@@ -57,7 +60,9 @@ def print_board(height, width, skulls, solution):
     sys.stdout.write('\n')
     sys.stdout.flush()
 
-def solve(available_positions, uncovered_positions, pawns, skulls, find_all_solutions=False):
+
+def solve(available_positions, uncovered_positions,
+          pawns, skulls, find_all_solutions=False):
     """
     Solves the problem. It builds the coverage as it goes.
     Args:
@@ -97,33 +102,39 @@ def solve(available_positions, uncovered_positions, pawns, skulls, find_all_solu
         # The pawn to place
         pawn = pawns[0]
         for numPosition, position in enumerate(available_positions):
-            pawn.set_pos(position)
+            pawn.position = position
             # Check that the pawn can't move to a skull
             if [skull for skull in skulls if pawn.can_move(skull)] == []:
                 # Recursively, place the other pawns
                 partial_solutions = solve(
-                        available_positions[:numPosition] +
-                            available_positions[numPosition + 1:],
-                        [pos for pos in uncovered_positions
-                            if not pawn.can_move(pos)],
-                        pawns[1:],
-                        skulls,
-                        find_all_solutions)
+                    (available_positions[:numPosition] +
+                     available_positions[numPosition + 1:]),
+                    [pos for pos in uncovered_positions
+                        if not pawn.can_move(pos)],
+                    pawns[1:],
+                    skulls,
+                    find_all_solutions)
                 if len(partial_solutions) > 0:
                     # Add the position of the current pawn to the partial
                     # solutions:
                     solutions += [[(pawn, position)] + partial_solution for
-                            partial_solution in partial_solutions]
+                                  partial_solution in partial_solutions]
                     if not find_all_solutions:
                         break
 
     return solutions
 
+
 def main(height, width, pawns, skulls, verbose=False):
     # Enumerate all the positions, excep the occupied by the skulls
-    positions = [(x, y) for x in range(width) for y in range(height) if (x, y) not in skulls]
+    positions = [(x, y)
+                 for x in range(width)
+                 for y in range(height)
+                 if (x, y) not in skulls]
 
-    print('Placing pawns ' + ' '.join([pawn.__repr__() for pawn in pawns]) + ' in board')
+    print('Placing pawns ' +
+          ' '.join([pawn.__repr__() for pawn in pawns]) +
+          ' in board')
 
     if verbose:
         print_board(height, width, skulls, [])
@@ -145,12 +156,11 @@ skulls = [
         ]
 
 pawns = [PurplePawn(),
-        RedPawn(),
-        RedPawn(),
-        BluePawn(),
-        OrangePawn(),
-        PinkPawn()
-        ]
+         RedPawn(),
+         RedPawn(),
+         BluePawn(),
+         OrangePawn(),
+         PinkPawn()
+         ]
 
 main(height, width, pawns, skulls)
-

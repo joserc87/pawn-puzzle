@@ -3,12 +3,12 @@ class Pawn:
     def __init__(self, name):
         self.name = name
         self.color = u''
-        self.set_pos(-1, -1)
+        self.position = (-1, -1)
 
     def can_move(self, row, col=None):
         p = row if col is None else (row, col)
-        diff = (p[0] - self.pos[0], p[1] - self.pos[1])
-        return self.can_move_relative(diff);
+        diff = (p[0] - self.position[0], p[1] - self.position[1])
+        return self.can_move_relative(diff)
 
     def can_move_relative(self, relative_position):
         """
@@ -20,18 +20,13 @@ class Pawn:
         """
         return False
 
-    def set_pos(self, row, col = None):
-        if col is None:
-            self.pos = row # Row is a tuple
-        else:
-            self.pos = (row, col)
-
     def __str__(self):
         return self.name
 
     def __repr__(self):
         # Output a pawn symbol with color
         return self.color + u'\u265F' + u'\033[39m'
+
 
 class PurplePawn(Pawn):
     """
@@ -45,6 +40,7 @@ class PurplePawn(Pawn):
     def can_move_relative(self, relative_position):
         # Same row
         return relative_position[0] == 0
+
 
 class RedPawn(Pawn):
     """
@@ -72,6 +68,7 @@ class BluePawn(Pawn):
         return abs(relative_position[0]) <= 1 and \
             abs(relative_position[1]) <= 1
 
+
 class OrangePawn(Pawn):
     """
     Pawn that moves in an L (like a knight)
@@ -84,7 +81,8 @@ class OrangePawn(Pawn):
         # move one row and 2 columns or viceversa
         y = abs(relative_position[0])
         x = abs(relative_position[1])
-        return x == y ==  0 or x == 2 and y == 1 or x == 1 and y == 2
+        return x == y == 0 or x == 2 and y == 1 or x == 1 and y == 2
+
 
 class PinkPawn(Pawn):
     """

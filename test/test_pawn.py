@@ -1,11 +1,12 @@
 import unittest
 from pawn import PurplePawn, RedPawn, BluePawn, OrangePawn, PinkPawn
 
+
 class test_purple_pawn(unittest.TestCase):
 
     def setUp(self):
         self.pawn = PurplePawn()
-        self.pawn.set_pos(3, 4)
+        self.pawn.position = (3, 4)
 
     def test_name(self):
         self.assertEqual('purple pawn', self.pawn.name)
@@ -20,11 +21,12 @@ class test_purple_pawn(unittest.TestCase):
         self.assertFalse(self.pawn.can_move(4, 4))
         self.assertFalse(self.pawn.can_move(-3, 100))
 
+
 class test_red_pawn(unittest.TestCase):
 
     def setUp(self):
         self.pawn = RedPawn()
-        self.pawn.set_pos(4, 3)
+        self.pawn.position = (4, 3)
 
     def test_name(self):
         self.assertEqual('red pawn', self.pawn.name)
@@ -44,11 +46,12 @@ class test_red_pawn(unittest.TestCase):
         self.assertFalse(self.pawn.can_move(3, 4))
         self.assertFalse(self.pawn.can_move(-4, -3))
 
+
 class test_blue_pawn(unittest.TestCase):
 
     def setUp(self):
         self.pawn = BluePawn()
-        self.pawn.set_pos(6, 1)
+        self.pawn.position = (6, 1)
 
     def test_name(self):
         self.assertEqual('blue pawn', self.pawn.name)
@@ -71,26 +74,27 @@ class test_blue_pawn(unittest.TestCase):
         self.assertFalse(self.pawn.can_move(6, -1))
         self.assertFalse(self.pawn.can_move(6, 3))
 
+
 class test_orange_pawn(unittest.TestCase):
 
     def setUp(self):
         self.pawn = OrangePawn()
-        self.pawn.set_pos(2, 3)
+        self.pawn.position = (2, 3)
 
     def test_name(self):
         self.assertEqual('orange pawn', self.pawn.name)
 
     def test_should_move_in_l(self):
-        self.assertTrue(self.pawn.can_move(2, 3)) # same
+        self.assertTrue(self.pawn.can_move(2, 3))  # same
         # Vertically and then horizontally
-        self.assertTrue(self.pawn.can_move(0, 2)) # Up
+        self.assertTrue(self.pawn.can_move(0, 2))  # Up
         self.assertTrue(self.pawn.can_move(0, 4))
-        self.assertTrue(self.pawn.can_move(4, 2)) # Down
+        self.assertTrue(self.pawn.can_move(4, 2))  # Down
         self.assertTrue(self.pawn.can_move(4, 4))
         # Horizontally and then vertically
-        self.assertTrue(self.pawn.can_move(1, 1)) # Left
+        self.assertTrue(self.pawn.can_move(1, 1))  # Left
         self.assertTrue(self.pawn.can_move(3, 1))
-        self.assertTrue(self.pawn.can_move(1, 5)) # Right
+        self.assertTrue(self.pawn.can_move(1, 5))  # Right
         self.assertTrue(self.pawn.can_move(3, 5))
 
     def test_should_not_move_in_other_directions(self):
@@ -101,11 +105,12 @@ class test_orange_pawn(unittest.TestCase):
         # horizontally 2 pos
         self.assertFalse(self.pawn.can_move(2, 5))
 
+
 class test_pink_pawn(unittest.TestCase):
 
     def setUp(self):
         self.pawn = PinkPawn()
-        self.pawn.set_pos(2, 3)
+        self.pawn.position = (2, 3)
 
     def test_name(self):
         self.assertEqual('pink pawn', self.pawn.name)
@@ -140,12 +145,12 @@ class test_pink_pawn(unittest.TestCase):
 
     def test_shoud_not_move_in_L(self):
         # Vertically and then horizontally
-        self.assertFalse(self.pawn.can_move(0, 2)) # Up
+        self.assertFalse(self.pawn.can_move(0, 2))  # Up
         self.assertFalse(self.pawn.can_move(0, 4))
-        self.assertFalse(self.pawn.can_move(4, 2)) # Down
+        self.assertFalse(self.pawn.can_move(4, 2))  # Down
         self.assertFalse(self.pawn.can_move(4, 4))
         # Horizontally and then vertically
-        self.assertFalse(self.pawn.can_move(1, 1)) # Left
+        self.assertFalse(self.pawn.can_move(1, 1))  # Left
         self.assertFalse(self.pawn.can_move(3, 1))
-        self.assertFalse(self.pawn.can_move(1, 5)) # Right
+        self.assertFalse(self.pawn.can_move(1, 5))  # Right
         self.assertFalse(self.pawn.can_move(3, 5))
